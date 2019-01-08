@@ -25,4 +25,10 @@
     </tr>
   </th:block>
 </table>
+<div>
+  <a th:href="@{'/customers'(page=${customers.number - 1})}" th:if="${!customers.first}">Previous</a>
+  <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+  <a th:href="@{'/customers'(page=${customers.number + 1})}" th:if="${!customers.last}">Next</a>
+</div>
+</body>
 </html>
