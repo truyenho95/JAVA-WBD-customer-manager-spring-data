@@ -12,7 +12,11 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -21,6 +25,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.TemplateEngine;
@@ -32,6 +37,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.List;
 import java.util.Properties;
 
 @Configuration
@@ -39,6 +45,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("com.truyenho")
 @EnableJpaRepositories("com.truyenho.repository")
+@EnableSpringDataWebSupport
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
   private ApplicationContext applicationContext;
@@ -52,6 +59,15 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
   public void addFormatters(FormatterRegistry registry) {
     registry.addFormatter(new ProvinceFormatter(applicationContext.getBean(ProvinceService.class)));
   }
+
+  /*@Override
+  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+    PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
+    resolver.setOneIndexedParameters(true);
+    resolver.setFallbackPageable(new PageRequest(1, 5));
+    argumentResolvers.add(resolver);
+    super.addArgumentResolvers(argumentResolvers);
+  }*/
 
   //  @Bean
   //  public CustomerRepository customerRepository(){
