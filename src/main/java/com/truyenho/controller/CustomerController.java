@@ -28,6 +28,11 @@ public class CustomerController {
     return provinceService.findAll();
   }
 
+  @GetMapping("/")
+  public ModelAndView index() {
+    return new ModelAndView("redirect:/customers");
+  }
+
   @GetMapping("/customers")
   public ModelAndView listCustomers(@RequestParam("s") Optional<String> s, Pageable pageable){
     Page<Customer> customers;
