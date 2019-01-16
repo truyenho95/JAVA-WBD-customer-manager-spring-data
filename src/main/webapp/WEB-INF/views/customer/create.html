@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Create customer</title>
+  <title th:text="#{create.head.title}"></title>
 </head>
 <body>
-<h1>Create customer</h1>
+Language: <a href="?lang=en">English</a> | <a href="?lang=vi">Vietnam</a>
+<h1 th:text="#{create.h1}"></h1>
 <p>
-  <a th:href="@{/customers}">Customer list</a>
+  <a th:href="@{/customers}" th:text="#{create.a}"></a>
 </p>
 <th:block th:if="${message}">
   <p th:text="${message}"></p>
@@ -15,15 +16,15 @@
 <form th:action="@{/create-customer}" th:object="${customer}" method="post">
   <table>
     <tr>
-      <td>First name:</td>
+      <td th:text="#{create.firstName}"></td>
       <td><input type="text" th:field="*{firstName}"/></td>
     </tr>
     <tr>
-      <td>Last name:</td>
+      <td th:text="#{create.lastName}"></td>
       <td><input type="text" th:field="*{lastName}"/></td>
     </tr>
     <tr>
-      <td>Province:</td>
+      <td  th:text="#{create.province}"></td>
       <td>
         <select th:field="*{province}">
           <option th:each="p : ${provinces}" th:value="${p.id}" th:text="${p.name}"></option>
@@ -32,7 +33,7 @@
     </tr>
     <tr>
       <td></td>
-      <td><input type="submit" value="Create customer"></td>
+      <td><input type="submit" th:value="#{create.submit}"></td>
     </tr>
   </table>
 </form>
